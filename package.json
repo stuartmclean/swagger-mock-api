@@ -1,0 +1,22 @@
+{
+  "name": "mock-api",
+  "version": "1.0.0",
+  "description": "mock-api for popsey sdk",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "s.mclean@foodpanda.com",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.14.0",
+    "js-yaml": "^3.7.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-nodemon": "^2.2.1",
+    "gulp-mocha": "^3.0.1",
+    "should": "^11.1.2",
+    "sinon": "^1.17.6"
+  }
+}

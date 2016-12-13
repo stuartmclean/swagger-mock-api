@@ -1,0 +1,10 @@
+#IDE
+/nbproject
+.idea
+*.iml
+
+#Mac
+.DS_Store
+
+#node
+node_modules

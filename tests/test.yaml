@@ -1,0 +1,512 @@
+swagger: "2.0"
+info:
+  title: Test
+  description: Test
+  version: "1.0.0"
+
+host: localhost:10010 # during dev, should point to your local machine
+
+basePath: /
+
+schemes:
+  - http
+  - https
+
+produces:
+  - application/json
+paths:
+  /vendor:
+    x-swagger-router-controller: vendor
+    get:
+      description: Common vendor search
+      operationId: vendor
+      parameters:
+        - name: vendor_ids
+          in: query
+          required: true
+          type: array
+          uniqueItems: true
+          items:
+            type: integer
+
+      responses:
+        '200':
+          description: List of Vendors found
+          schema:
+            type: object
+            required:
+              - count
+            properties:
+              count:
+                type: integer
+                minimum: 0
+              data:
+                type: array
+                items:
+                  $ref: '#/definitions/Vendor'
+
+        '400':
+          $ref: '#/responses/BadRequest'
+
+        '404':
+          $ref: '#/responses/NotFound'
+
+        default:
+          $ref: '#/responses/BadRequest'
+
+# complex objects have schema definitions
+definitions:
+  Vendor:
+    type: object
+    required:
+      - id
+      - code
+      - urlkey
+    properties:
+      id:
+        type: integer
+        minimum: 1
+
+      branch:
+        type: string
+
+      is_active:
+        type: boolean
+
+      name:
+        type: string
+
+      latitude:
+        $ref: '#/definitions/latitude'
+
+      longitude:
+        $ref: '#/definitions/longitude'
+
+      discounts:
+        type: array
+        items:
+          $ref: '#/definitions/Discount'
+
+      menus:
+        type: array
+        items:
+          $ref: '#/definitions/Menu'
+
+  Menu:
+    type: object
+    properties:
+      id:
+        type: integer
+        minimum: 1
+
+      name:
+        type: string
+
+      opening_time:
+        $ref: '#/definitions/time'
+
+      menu_categories:
+        type: array
+        items:
+          $ref: '#/definitions/MenuCategory'
+
+  MenuCategory:
+    type: object
+    properties:
+      id:
+        type: integer
+        minimum: 1
+
+      code:
+        type: string
+
+      name:
+        type: string
+
+      description:
+        type: string
+
+      file_path:
+        type: string
+
+      mobify_file_path:
+        type: string
+
+      file_name:
+        type: string
+
+      inactive_products_qty:
+        type: integer
+        minimum: 0
+
+      active_products_qty:
+        type: integer
+        minimum: 0
+
+      container_price:
+        type: number
+        format: float
+        minimum: 0
+
+      is_popular:
+        type: boolean
+
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/Product'
+
+  Product:
+    type: object
+    properties:
+      id:
+        type: integer
+        minimum: 1
+
+      name:
+        type: string
+
+      popular_product_ranking:
+        type: integer
+
+      service_tax_percentage:
+        type: number
+        format: float
+
+      vat_percentage:
+        type: number
+        format: float
+
+      is_express_item:
+        type: boolean
+
+      product_variations:
+        type: array
+        items:
+          $ref: '#/definitions/ProductVariation'
+
+  ProductVariation:
+    type: object
+    properties:
+      id:
+        type: integer
+        minimum: 1
+
+      code:
+        type: string
+
+      remote_code:
+        type: string
+
+      name:
+        type: string
+
+      price:
+        type: number
+        format: float
+        minimum: 0
+
+      characteristics:
+        type: array
+        items:
+          $ref: '#/definitions/ProductCharacteristic'
+
+      choices:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+              minimum: 1
+
+            name:
+              type: string
+            quantity_minimum:
+              type: integer
+              minimum: 0
+            quantity_maximum:
+              type: integer
+              minimum: 0
+            options:
+              type: array
+              items:
+                $ref: '#/definitions/Choice'
+
+      toppings:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+              minimum: 1
+            name:
+              type: string
+            quantity_minimum:
+              type: integer
+              minimum: 0
+            quantity_maximum:
+              type: integer
+              minimum: 0
+            options:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    minimum: 1
+                  name:
+                    type: string
+                  is_available:
+                    type: boolean
+                  price:
+                    type: number
+                    format: float
+                    minimum: 0
+
+  Choice:
+    type: object
+    properties:
+      id:
+        type: integer
+        minimum: 1
+
+      remote_code:
+        type: string
+
+      is_available:
+        type: boolean
+
+      position:
+        type: string
+
+  ProductCharacteristic:
+    type: object
+    properties:
+      name:
+        type: string
+      is_display_title:
+        type: boolean
+      items:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+              minimum: 1
+
+            name:
+              type: string
+
+            use_symbol:
+              type: boolean
+
+  City:
+    type: object
+    properties:
+      id:
+        type: integer
+        minimum: 1
+
+      name:
+        type: string
+
+      latitude:
+        $ref: '#/definitions/latitude'
+
+      longitude:
+        $ref: '#/definitions/longitude'
+
+      timezone:
+        type: string
+
+      is_top_city:
+        type: boolean
+
+  Discount:
+    type: object
+    properties:
+      id:
+        type: integer
+        minimum: 1
+
+      name:
+        type: string
+
+      description:
+        type: string
+
+      start_date:
+        type: string
+        format: date
+
+      end_date:
+        type: string
+        format: date
+
+      opening_time:
+        $ref: '#/definitions/time'
+
+      closing_time:
+        $ref: '#/definitions/time'
+
+      condition_type:
+        type: string
+
+      condition_object:
+        type: integer
+
+      condition_object_array:
+        type: array
+        items:
+          type: integer
+
+      minimum_order_value:
+        type: number
+        format: float
+        minimum: 0
+
+      discount_type:
+        type: string
+
+      discount_amount:
+        type: number
+        format: float
+        minimum: 0
+
+      promotional_limit:
+        type: integer
+        minimum: 0
+
+      file_name:
+        type: string
+
+      bogo_product_blocks:
+        type: array
+        items:
+          type: object
+          properties:
+            id:
+              type: integer
+              minimum: 1
+
+            block_type:
+              type: string
+
+            product_category_voucher:
+              type: array
+              items:
+                type: object
+                properties:
+                  object_type:
+                    type: string
+
+                  object_id:
+                    type: integer
+                    minimum: 1
+
+
+                  object_code:
+                    type: string
+
+                  quantity:
+                    type: integer
+                    minimum: 0
+
+  DeliveryCondition:
+    type: object
+    properties:
+      minimum_order_amount:
+        type: number
+        format: float
+        minimum: 0
+
+      maximum_order_amount:
+        type: number
+        format: float
+        minimum: 0
+
+      delivery_fee:
+        type: number
+        format: float
+        minimum: 0
+
+      delivery_fee_type:
+        type: string
+
+  TimeSlotDay:
+    type: object
+    properties:
+      date:
+        type: string
+        format: 'date-time'
+
+      is_special_day:
+        type: boolean
+
+      time_slots:
+        type: array
+        items:
+          type: object
+          properties:
+            starting_time:
+              type: string
+              format: 'date-time'
+
+            ending_time:
+              type: string
+              format: 'date-time'
+
+            starting_time_of_the_day:
+              $ref: '#/definitions/time'
+
+            ending_time_of_the_day:
+              $ref: '#/definitions/time'
+
+  latitude:
+    type: number
+    format: float
+    minimum: -90
+    maximum: 90
+
+  longitude:
+    type: number
+    format: float
+    minimum: -180
+    maximum: 180
+
+  time:
+    type: string
+    description: time in format G:i
+
+responses:
+  BadRequest:
+    description: Request contains incorrect data
+    schema:
+      type: object
+      properties:
+        exception:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
+
+  NotFound:
+    description: Object not found by its identifier
+    schema:
+      type: object
+      properties:
+        exception:
+          type: string
+        message:
+          type: string
+        errors:
+          type: array
+          items:
+            type: string
