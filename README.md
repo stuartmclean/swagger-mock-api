@@ -1,19 +1,34 @@
 # Swagger Mock-Api
 
-Creates useful mock values based on a swagger.yaml file
+Creates useful mock values based on a swagger.yaml file.
+Reloads file on every api call so that changes can be seen without restarting the server.
 
 ### Quickstart
 
 run ```npm install```
 
-run ```node app.js```
+run ```node server.js```
 
 optional environment params:
 * FILE (full file path to the swagger.yaml)
-* PORT (default: 10010)
+* PORT (default: 8080)
 
-### Dev Stuff
+### Docker
 
-run a useful self-refreshing test server on port 10010: ```gulp```
+get image: ```docker pull stuartmclean/swagger-mock-api```
 
-run tests: ```gulp test```
+sample docker command, accessible on port 10010 and reading swagger file from:
+/path/to/swagger/dir/swagger.yaml
+
+```
+docker run -d \
+    -p 10010:8080 \
+    -v /path/to/swagger/dir:/app/swagger \
+    stuartmclean/swagger-mock-api
+```
+
+### Dev
+
+run a useful self-refreshing test server on port 8080: ```gulp```
+
+run tests: ```npm test```

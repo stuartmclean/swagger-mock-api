@@ -1,9 +1,10 @@
 var express = require('express'),
     fs = require('fs'),
     mockDataProvider = require('./lib/mockDataFromSwaggerYaml'),
+    yamlDocHandler = require('./lib/yamlDocHandler'),
     app = express(),
-    port = process.env.PORT || 10010,
-    file = process.env.FILE || './swagger.yaml';
+    port = process.env.PORT || 8080,
+    file = process.env.FILE || './swagger/swagger.yaml';
 
 if (!fs.existsSync(file)) {
     console.log(file + ' does not exist');
@@ -19,9 +20,10 @@ app.get('/', function (req, res) {
 
 app.get('/:api', function (req, res) {
     var yamlString = fs.readFileSync(file, 'utf8'),
-        dataProvider = new mockDataProvider();
+        docHandler = new yamlDocHandler(yamlString),
+        dataProvider = new mockDataProvider(docHandler);
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(dataProvider.getMockData(yamlString, req.params.api)));
+    res.send(JSON.stringify(dataProvider.getMockData(req.params.api)));
 });
 
 app.listen(port, function () {

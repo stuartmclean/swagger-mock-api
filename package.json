@@ -4,7 +4,7 @@
   "description": "mock-api for popsey sdk",
   "main": "app.js",
   "scripts": {
-    "test": "test"
+    "test": "gulp test"
   },
   "author": "s.mclean@foodpanda.com",
   "license": "MIT",
@@ -16,7 +16,6 @@
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-mocha": "^3.0.1",
-    "should": "^11.1.2",
-    "sinon": "^1.17.6"
+    "should": "^11.1.2"
   }
 }

@@ -1,0 +1,133 @@
+{
+"expected": [
+    {
+      "id": 1,
+      "branch": "test string for branch",
+      "is_active": true,
+      "name": "test string for name",
+      "latitude": 90,
+      "longitude": 180,
+      "discounts": [
+        {
+          "id": 2,
+          "name": "test string for name",
+          "description": "test string for description",
+          "start_date": "2016-01-01",
+          "end_date": "2016-01-01",
+          "opening_time": "12:13",
+          "closing_time": "12:13",
+          "condition_type": "test string for condition_type",
+          "condition_object": 3,
+          "condition_object_array": [
+            4
+          ],
+          "minimum_order_value": 5.14159,
+          "discount_type": "test string for discount_type",
+          "discount_amount": 6.14159,
+          "promotional_limit": 7,
+          "file_name": "test string for file_name",
+          "bogo_product_blocks": [
+            {
+              "id": 8,
+              "block_type": "test string for block_type",
+              "product_category_voucher": [
+                {
+                  "object_type": "test string for object_type",
+                  "object_id": 9,
+                  "object_code": "test string for object_code",
+                  "quantity": 10
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "menus": [
+        {
+          "id": 11,
+          "name": "test string for name",
+          "opening_time": "12:13",
+          "menu_categories": [
+            {
+              "id": 12,
+              "code": "test string for code",
+              "name": "test string for name",
+              "description": "test string for description",
+              "file_path": "test string for file_path",
+              "mobify_file_path": "test string for mobify_file_path",
+              "file_name": "test string for file_name",
+              "inactive_products_qty": 13,
+              "active_products_qty": 14,
+              "container_price": 15.14159,
+              "is_popular": true,
+              "products": [
+                {
+                  "id": 16,
+                  "name": "test string for name",
+                  "popular_product_ranking": 17,
+                  "service_tax_percentage": 18.14159,
+                  "vat_percentage": 19.14159,
+                  "is_express_item": true,
+                  "product_variations": [
+                    {
+                      "id": 20,
+                      "code": "test string for code",
+                      "remote_code": "test string for remote_code",
+                      "name": "test string for name",
+                      "price": 21.14159,
+                      "characteristics": [
+                        {
+                          "name": "test string for name",
+                          "is_display_title": true,
+                          "items": [
+                            {
+                              "id": 22,
+                              "name": "test string for name",
+                              "use_symbol": true
+                            }
+                          ]
+                        }
+                      ],
+                      "choices": [
+                        {
+                          "id": 23,
+                          "name": "test string for name",
+                          "quantity_minimum": 24,
+                          "quantity_maximum": 25,
+                          "options": [
+                            {
+                              "id": 26,
+                              "remote_code": "test string for remote_code",
+                              "is_available": true,
+                              "position": "test string for position"
+                            }
+                          ]
+                        }
+                      ],
+                      "toppings": [
+                        {
+                          "id": 27,
+                          "name": "test string for name",
+                          "quantity_minimum": 28,
+                          "quantity_maximum": 29,
+                          "options": [
+                            {
+                              "id": 30,
+                              "name": "test string for name",
+                              "is_available": true,
+                              "price": 31.14159
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
