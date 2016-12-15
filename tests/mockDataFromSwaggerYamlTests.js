@@ -19,7 +19,7 @@ describe('mock data from swagger yaml', function () {
 
         it('should return an object with test values when the path-name exists', function () {
             var expectedData = JSON.parse(fs.readFileSync(__dirname + '/expectedResponse.json'));
-            provider.getMockData('vendor').should.eql(expectedData["expected"]);
+            provider.getMockData('vendor').should.eql(expectedData["data"]);
         });
     })
 })

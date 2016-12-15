@@ -67,14 +67,19 @@ definitions:
         type: integer
         minimum: 1
 
-      branch:
-        type: string
-
       is_active:
         type: boolean
 
       name:
         type: string
+
+      a_date_time:
+        type: string
+        format: date-time
+
+      a_date:
+        type: string
+        format: date
 
       latitude:
         $ref: '#/definitions/latitude'
@@ -117,31 +122,8 @@ definitions:
         type: integer
         minimum: 1
 
-      code:
-        type: string
-
       name:
         type: string
-
-      description:
-        type: string
-
-      file_path:
-        type: string
-
-      mobify_file_path:
-        type: string
-
-      file_name:
-        type: string
-
-      inactive_products_qty:
-        type: integer
-        minimum: 0
-
-      active_products_qty:
-        type: integer
-        minimum: 0
 
       container_price:
         type: number
@@ -191,12 +173,6 @@ definitions:
       id:
         type: integer
         minimum: 1
-
-      code:
-        type: string
-
-      remote_code:
-        type: string
 
       name:
         type: string
@@ -407,10 +383,6 @@ definitions:
                   object_id:
                     type: integer
                     minimum: 1
-
-
-                  object_code:
-                    type: string
 
                   quantity:
                     type: integer
