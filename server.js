@@ -1,3 +1,5 @@
+'use strict';
+
 var express = require('express'),
     fs = require('fs'),
     mockDataProvider = require('./lib/mockDataFromSwaggerYaml'),
@@ -21,12 +23,16 @@ app.get('/', function (req, res) {
 app.get('/:api', function (req, res) {
     var yamlString = fs.readFileSync(file, 'utf8'),
         docHandler = new yamlDocHandler(yamlString),
-        dataProvider = new mockDataProvider(docHandler);
+        dataProvider = new mockDataProvider(docHandler),
+        jsonResponse = {
+            count: 1,
+            data: dataProvider.getMockData(req.params.api)
+        };
+
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(dataProvider.getMockData(req.params.api)));
+    res.send(JSON.stringify(jsonResponse));
 });
 
 app.listen(port, function () {
     console.log('running on port ' + port);
 });
-
