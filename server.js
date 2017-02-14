@@ -16,7 +16,7 @@ if (!fs.existsSync(file)) {
 app.get('/', function (req, res) {
    res.send(
        'Mock api is running, but there\s nothing here!'
-        + 'try an api path from your swagger file e.g. "/vendor"'
+        + ' try an api path from your swagger file e.g. "/vendor"'
    );
 });
 
