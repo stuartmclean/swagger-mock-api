@@ -1,38 +1,42 @@
+#!/usr/bin/env node
 'use strict';
 
 var express = require('express'),
+    opts = require('commander')
+        .version('0.0.1')
+        .option('-d, --delay <n>', 'delay in ms before response', parseInt)
+        .option('-f, --file [fileName]')
+        .parse(process.argv),
+    mockApi = require('./lib/mock-api'),
     fs = require('fs'),
-    mockDataProvider = require('./lib/mockDataFromSwaggerYaml'),
-    yamlDocHandler = require('./lib/yamlDocHandler'),
     app = express(),
     port = process.env.PORT || 8080,
-    file = process.env.FILE || './swagger/swagger.yaml';
+    filePath = (typeof opts.file !== 'undefined') ? opts.file : './swagger/swagger.yaml';
 
-if (!fs.existsSync(file)) {
-    console.log(file + ' does not exist');
+if (!fs.existsSync(filePath)) {
+    console.log(filePath + ' does not exist');
     process.exit(1);
 }
 
 app.get('/', function (req, res) {
-   res.send(
-       'Mock api is running, but there\s nothing here!'
-        + ' try an api path from your swagger file e.g. "/vendor"'
-   );
+    setTimeout(function () {
+        res.send(mockApi.getEmptyPathText());
+    }, opts.delay);
 });
 
 app.get('/:api', function (req, res) {
-    var yamlString = fs.readFileSync(file, 'utf8'),
-        docHandler = new yamlDocHandler(yamlString),
-        dataProvider = new mockDataProvider(docHandler),
-        jsonResponse = {
-            count: 1,
-            data: dataProvider.getMockData(req.params.api)
-        };
-
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify(jsonResponse));
+    setTimeout(function () {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(mockApi.getPathObject(req.params.api, filePath)));
+    }, opts.delay);
 });
 
 app.listen(port, function () {
-    console.log('running on port ' + port);
+    if (opts.delay !== parseInt(opts.delay, 10)) {
+        opts.delay = 0;
+    }
+
+    console.log(
+        'running on port ' + port + (opts.delay > 0 ? ' with response delay of ' + opts.delay : '')
+    );
 });

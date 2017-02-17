@@ -2,9 +2,9 @@
 
 var fs = require('fs'),
     should = require('should'),
-    mockDataProvider = require('../lib/mockDataFromSwaggerYaml'),
+    mockDataProvider = require('../lib/mock-data-from-swagger-yaml'),
     yaml = fs.readFileSync(__dirname + '/../swagger/swagger.yaml', 'utf8'),
-    yamlDocHandler = require('../lib/yamlDocHandler'),
+    yamlDocHandler = require('../lib/yaml-doc-handler'),
     docHandler = new yamlDocHandler(yaml),
     provider = new mockDataProvider(docHandler);
 
@@ -18,7 +18,7 @@ describe('mock data from swagger yaml', function () {
         });
 
         it('should return an object with test values when the path-name exists', function () {
-            var expectedData = JSON.parse(fs.readFileSync(__dirname + '/expectedResponse.json'));
+            var expectedData = JSON.parse(fs.readFileSync(__dirname + '/expected-response.json'));
             provider.getMockData('vendor').should.eql(expectedData["data"]);
         });
     })
