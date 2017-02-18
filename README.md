@@ -24,8 +24,9 @@ sample docker command, accessible on port 10010 and reading swagger file from:
 docker run -d \
     -p 10010:8080 \
     stuartmclean/swagger-mock-api \
-    -f /path/to/swagger/dir:/app/swagger 
-    --delay 1000
+    -f /path/to/swagger/dir:/app/swagger \
+    --delay 1000 \
+    --status 418 
 ```
 
 ### Dev
