@@ -14,12 +14,12 @@ var fs = require('fs'),
 describe('mock data from swagger yaml', function () {
     describe('getMockData', function () {
         it('should return an empty object when the path-name does not exist in the yaml file', function () {
-            provider.getMockData('foo').should.eql([]);
+            provider.getMockData('foo', 'bar').should.eql([]);
         });
 
         it('should return an object with test values when the path-name exists', function () {
             var expectedData = JSON.parse(fs.readFileSync(__dirname + '/expected-response.json'));
-            provider.getMockData('vendor').should.eql(expectedData["data"]);
+            provider.getMockData('vendor', 'get').should.eql(expectedData["data"]);
         });
     })
 })
