@@ -23,19 +23,15 @@ if (!fs.existsSync(filePath)) {
 }
 
 app.get('/', function (req, res) {
-    setTimeout(function () {
-        res.status(status);
-        res.setHeader('Content-Type', 'application/json');
-        res.send({"info": mockApi.getEmptyPathText()});
-    }, opts.delay);
+    sendDataUsingTimeout({"info": mockApi.getEmptyPathText()}, res);
 });
 
 app.get('/:api', function (req, res) {
-    setTimeout(function () {
-        res.status(status);
-        res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(mockApi.getPathObject(req.params.api, filePath)));
-    }, delay);
+    sendDataFromSwagger(req, res)
+});
+
+app.post('/:api', function (req, res) {
+    sendDataFromSwagger(req, res)
 });
 
 app.listen(port, function () {
@@ -45,3 +41,25 @@ app.listen(port, function () {
         + (status !== 200 ? ' will return error code ' + status : '')
     );
 });
+
+/**
+ * @param req
+ * @param res
+ */
+function sendDataFromSwagger(req, res) {
+    sendDataUsingTimeout(mockApi.getPathObject(req.params.api, filePath), res);
+}
+
+/**
+ * @param {Object} data
+ * @param res
+ */
+function sendDataUsingTimeout(data, res) {
+    setTimeout(function () {
+        res.status(status);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify(data));
+    }, delay);
+}
+
+
