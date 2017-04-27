@@ -18,6 +18,7 @@
     "gulp-nodemon": "^2.2.1",
     "gulp-mocha": "^3.0.1",
     "istanbul": "^0.2.9",
+    "xunit-file": "0.0.5",
     "should": "^11.1.2"
   }
 }
