@@ -1,12 +1,12 @@
 {
   "name": "mock-api",
   "version": "1.0.0",
-  "description": "mock-api for popsey sdk",
+  "description": "uses swagger files to generate a mock-api",
   "main": "app.js",
   "scripts": {
     "test": "gulp test"
   },
-  "author": "s.mclean@foodpanda.com",
+  "author": "info@stuartmclean.net",
   "license": "MIT",
   "dependencies": {
     "commander": "^2.9.0",
@@ -17,6 +17,8 @@
     "gulp": "^3.9.1",
     "gulp-nodemon": "^2.2.1",
     "gulp-mocha": "^3.0.1",
+    "istanbul": "^0.2.9",
+    "xunit-file": "0.0.5",
     "should": "^11.1.2"
   }
 }

@@ -1,0 +1,22 @@
+
+node_js:
+    - "7.9"
+
+language: node_js
+
+# For xunit-file module to put results in shippable folder
+env:
+  - XUNIT_FILE=shippable/testresults/result.xml
+
+# Make folders for the reports
+before_script:
+  - mkdir -p shippable/testresults
+  - mkdir -p shippable/codecoverage
+
+script:
+  - npm test
+
+# Generate coverage report with istanbul
+after_script:
+  - ./node_modules/.bin/istanbul report cobertura --dir  shippable/codecoverage/
+
